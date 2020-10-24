@@ -1,0 +1,51 @@
+version: "3"
+services: 
+    php:
+        image: nat1vus/php-fpm-pgsql
+        container_name: php-fpm-pgsql
+        restart: always
+        environment: 
+            TZ: Asia/Shanghai
+        volumes: 
+            - ./nginx/www:/var/www
+        depends_on: 
+            - db
+        networks: 
+            - webnet
+
+    web:
+        image: nginx:alpine
+        container_name: nginx
+        restart: always
+        environment: 
+            TZ: Asia/Shanghai
+        ports:
+            - 80:80
+            - 443:443
+        volumes: 
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./nginx/www:/var/www
+            - ./nginx/nginx_log:/var/log/nginx
+            - ./nginx/web_logs:/etc/nginx/logs
+            - ./nginx/ssl:/etc/nginx/ssl
+        depends_on: 
+            - php
+        networks: 
+            - webnet
+
+    db:
+        image: postgres:alpine
+        container_name: pgsql
+        restart: always
+        environment: 
+            # POSTGRES_USER: username
+            POSTGRES_PASSWORD: database_pwd
+            POSTGRES_DB: typecho
+            TZ: Asia/Shanghai
+        volumes:
+            - ./dbdata:/var/lib/postgresql/data
+        networks: 
+            - webnet
+        
+networks: 
+    webnet:
