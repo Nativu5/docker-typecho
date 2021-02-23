@@ -27,7 +27,7 @@ services:
             - ./nginx/www:/var/www
             - ./nginx/nginx_log:/var/log/nginx
             - ./nginx/web_logs:/etc/nginx/logs
-            - ./nginx/ssl:/etc/nginx/ssl
+            - ./nginx/cert:/etc/nginx/ssl
         depends_on: 
             - php
         networks: 
