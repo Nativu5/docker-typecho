@@ -50,7 +50,10 @@
 
 0. 宿主机必须安装 `docker`, `docker-compose`, 部署时的域名必须有证书; 
 
-1. 解压压缩包，切换到释放出的 `docker-typecho` 目录下；
+1. 克隆本仓库及子模块，切换到 `docker-typecho` 目录下；
+   ```bash
+   git clone --recursive --depth=1 https://github.com/Nativu5/docker-typecho.git
+   ```
 
 2. 共有 3 处配置文件需要用户自行修改：
 
@@ -118,7 +121,7 @@
 
   别忘了 `systemctl enable crond && systemctl start`.
 
-* `Typecho` 程序文件，使用的版本为 [2020年10月09日打包的开发版](https://github.com/typecho/typecho/commit/269832aa85a091f6fd759b6bcec995eb612b1afb)。最新的稳定版读取 `pgsql` 时会出错，因此使用开发版；
+* `Typecho` 程序文件，使用的版本为当前 [Typecho](https://github.com/typecho/typecho) 仓库中 master 分支的最新版。您可以手动替换为需要的版本。
 
 * `Typecho` 安装时需要的数据库信息都在 `docker-compose.yml` 中；
 
